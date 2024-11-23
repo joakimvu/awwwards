@@ -1,11 +1,11 @@
+import Hero from "./components/Hero.jsx";
+
 const App = () => {
-  return (
-    <div>
-      <h1 className="text-5xl text-violet-300 font-bold">
-        Welcome to Awwwards
-      </h1>
-    </div>
-  );
+    return (
+        <main className="relative min-h-screen w-screen overflow-x-hidden">
+            <Hero/>
+        </main>
+    );
 };
 
 export default App;
