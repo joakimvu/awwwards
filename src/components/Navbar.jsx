@@ -4,7 +4,11 @@ import {TiLocationArrow} from "react-icons/ti";
 import {useWindowScroll} from "react-use";
 import gsap from "gsap";
 
-const navItems = ["Nexus", "Vault", "Prolouge", "About", "Contact"]
+import {ScrollToPlugin} from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(ScrollToPlugin);
+
+const navItems = ["About", "Contact"]
 
 const Navbar = () => {
     const [isAudioPlaying, setIsAudioPlaying] = useState(false)
@@ -16,6 +20,17 @@ const Navbar = () => {
     const audioElementRef = useRef(null);
 
     const {y: currentScrollY} = useWindowScroll()
+
+    const scrollToSection = (id) => {
+        gsap.to(window, {
+            scrollTo: {
+                y: id, // Target element ID or selector
+                autoKill: true, // Stops animation if the user scrolls manually
+            },
+            duration: 1, // Animation duration in seconds
+            ease: "power2.inOut", // Smooth easing effect
+        });
+    };
 
     useEffect(() => {
         if (currentScrollY === 0) {
@@ -71,9 +86,13 @@ const Navbar = () => {
                     <div className="flex h-full items-center">
                         <div className="hidden md:block">
                             {navItems.map((item, i) => (
-                                <a key={i} href={`#${item.toLowerCase()}`} className="nav-hover-btn">
+                                <button
+                                    key={i}
+                                    className="nav-hover-btn"
+                                    onClick={() => scrollToSection(`#${item.toLowerCase()}`)}
+                                >
                                     {item}
-                                </a>
+                                </button>
                             ))}
                         </div>
 
